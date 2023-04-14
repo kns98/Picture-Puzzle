@@ -32,7 +32,7 @@ namespace Picture_Puzzle
             foreach (Button b in panel1.Controls)
                 b.Enabled = true;
 
-            Image orginal = Image.FromFile(@"img\img.jpg");
+            Image orginal = Image.FromFile(@"..\..\img\img.jpg");
 
             cropImageTomages(orginal, 270, 270);
 
