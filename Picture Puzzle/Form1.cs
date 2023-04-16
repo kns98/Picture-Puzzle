@@ -15,6 +15,7 @@ namespace Picture_Puzzle
     {
         Point EmptyPoint;
         ArrayList images = new ArrayList();
+
         public Form1()
         {
             EmptyPoint.X = 180;
@@ -22,10 +23,7 @@ namespace Picture_Puzzle
             InitializeComponent();
         }
 
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
+        private void Form1_Load(object sender, EventArgs e) { }
 
         private void button9_Click(object sender, EventArgs e)
         {
@@ -73,7 +71,8 @@ namespace Picture_Puzzle
 
             graphic.Dispose();
 
-            int movr = 0, movd = 0;
+            int movr = 0,
+                movd = 0;
 
             for (int x = 0; x < 8; x++)
             {
@@ -81,8 +80,7 @@ namespace Picture_Puzzle
 
                 for (int i = 0; i < 90; i++)
                     for (int j = 0; j < 90; j++)
-                        piece.SetPixel(i, j,
-                            bmp.GetPixel(i + movr, j + movd));
+                        piece.SetPixel(i, j, bmp.GetPixel(i + movr, j + movd));
 
                 images.Add(piece);
 
@@ -94,7 +92,6 @@ namespace Picture_Puzzle
                     movd += 90;
                 }
             }
-
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -104,10 +101,14 @@ namespace Picture_Puzzle
 
         private void MoveButton(Button btn)
         {
-            if (((btn.Location.X == EmptyPoint.X - 90 || btn.Location.X == EmptyPoint.X + 90)
-                && btn.Location.Y == EmptyPoint.Y)
+            if (
+                (
+                    (btn.Location.X == EmptyPoint.X - 90 || btn.Location.X == EmptyPoint.X + 90)
+                    && btn.Location.Y == EmptyPoint.Y
+                )
                 || (btn.Location.Y == EmptyPoint.Y - 90 || btn.Location.Y == EmptyPoint.Y + 90)
-                && btn.Location.X == EmptyPoint.X)
+                    && btn.Location.X == EmptyPoint.X
+            )
             {
                 Point swap = btn.Location;
                 btn.Location = EmptyPoint;
@@ -120,7 +121,8 @@ namespace Picture_Puzzle
 
         private void CheckValid()
         {
-            int count = 0, index;
+            int count = 0,
+                index;
             foreach (Button btn in panel1.Controls)
             {
                 index = (btn.Location.Y / 90) * 3 + btn.Location.X / 90;
