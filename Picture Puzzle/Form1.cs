@@ -13,13 +13,16 @@ namespace Picture_Puzzle
 {
     public partial class Form1 : Form
     {
+        const int size = 270;
+        const int one_third = size/3;
+        const int two_third = (size / 3) * 2; 
         Point EmptyPoint;
         ArrayList images = new ArrayList();
 
         public Form1()
         {
-            EmptyPoint.X = 180;
-            EmptyPoint.Y = 180;
+            EmptyPoint.X = two_third;
+            EmptyPoint.Y = two_third;
             InitializeComponent();
         }
 
@@ -32,7 +35,7 @@ namespace Picture_Puzzle
 
             Image orginal = Image.FromFile(@"..\..\img\img.jpg");
 
-            cropImageTomages(orginal, 270, 270);
+            cropImageTomages(orginal, size, size);
 
             AddImagesToButtons(images);
         }
@@ -42,7 +45,7 @@ namespace Picture_Puzzle
             int i = 0;
             int[] arr = { 0, 1, 2, 3, 4, 5, 6, 7 };
 
-            arr = suffle(arr);
+            arr = shuffle(arr);
 
             foreach (Button b in panel1.Controls)
             {
@@ -54,7 +57,7 @@ namespace Picture_Puzzle
             }
         }
 
-        private int[] suffle(int[] arr)
+        private int[] shuffle(int[] arr)
         {
             Random rand = new Random();
             arr = arr.OrderBy(x => rand.Next()).ToArray();
@@ -76,20 +79,20 @@ namespace Picture_Puzzle
 
             for (int x = 0; x < 8; x++)
             {
-                Bitmap piece = new Bitmap(90, 90);
+                Bitmap piece = new Bitmap(one_third, one_third);
 
-                for (int i = 0; i < 90; i++)
-                    for (int j = 0; j < 90; j++)
+                for (int i = 0; i < one_third; i++)
+                    for (int j = 0; j < one_third; j++)
                         piece.SetPixel(i, j, bmp.GetPixel(i + movr, j + movd));
 
                 images.Add(piece);
 
-                movr += 90;
+                movr += one_third;
 
-                if (movr == 270)
+                if (movr == size)
                 {
                     movr = 0;
-                    movd += 90;
+                    movd += one_third;
                 }
             }
         }
@@ -103,10 +106,10 @@ namespace Picture_Puzzle
         {
             if (
                 (
-                    (btn.Location.X == EmptyPoint.X - 90 || btn.Location.X == EmptyPoint.X + 90)
+                    (btn.Location.X == EmptyPoint.X - one_third || btn.Location.X == EmptyPoint.X + one_third)
                     && btn.Location.Y == EmptyPoint.Y
                 )
-                || (btn.Location.Y == EmptyPoint.Y - 90 || btn.Location.Y == EmptyPoint.Y + 90)
+                || (btn.Location.Y == EmptyPoint.Y - one_third || btn.Location.Y == EmptyPoint.Y + one_third)
                     && btn.Location.X == EmptyPoint.X
             )
             {
@@ -115,7 +118,7 @@ namespace Picture_Puzzle
                 EmptyPoint = swap;
             }
 
-            if (EmptyPoint.X == 180 && EmptyPoint.Y == 180)
+            if (EmptyPoint.X == two_third && EmptyPoint.Y == two_third)
                 CheckValid();
         }
 
@@ -125,7 +128,7 @@ namespace Picture_Puzzle
                 index;
             foreach (Button btn in panel1.Controls)
             {
-                index = (btn.Location.Y / 90) * 3 + btn.Location.X / 90;
+                index = (btn.Location.Y / one_third) * 3 + btn.Location.X / one_third;
                 if (images[index] == btn.Image)
                     count++;
             }
