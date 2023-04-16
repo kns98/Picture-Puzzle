@@ -111,6 +111,20 @@ namespace Picture_Puzzle
             MoveButton((Button)sender);
         }
 
+        /*
+         * The MoveButton function takes a button as input and moves it to the 
+         * empty space on the puzzle board if it is adjacent to the empty space. 
+         * Here is a step-by-step breakdown of the function:
+         *
+         * The function first checks if the button is adjacent to the empty space by 
+         * comparing its location with the EmptyPoint variable, which holds the coordinates 
+         * of an empty space.
+         * 
+         * If the button is adjacent to the empty space, the function swaps their positions 
+         * by assigning the button's location to the EmptyPoint variable and the EmptyPoint 
+         * variable to the button's location.
+         * 
+         */
         private void MoveButton(Button btn)
         {
             if (
@@ -138,6 +152,7 @@ namespace Picture_Puzzle
             foreach (Button btn in panel1.Controls)
             {
                 index = (btn.Location.Y / one_third) * 3 + btn.Location.X / one_third;
+                //compare index to original, not the whole image
                 if (images[index] == btn.Image)
                     count++;
             }
