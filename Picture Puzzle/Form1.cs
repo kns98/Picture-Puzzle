@@ -45,7 +45,7 @@ namespace Picture_Puzzle
             int i = 0;
             int[] arr = { 0, 1, 2, 3, 4, 5, 6, 7 };
 
-            arr = shuffle(arr);
+            Shuffle(arr);
 
             foreach (Button b in panel1.Controls)
             {
@@ -57,12 +57,21 @@ namespace Picture_Puzzle
             }
         }
 
-        private int[] shuffle(int[] arr)
+        public static void Shuffle(int[] array)
         {
-            Random rand = new Random();
-            arr = arr.OrderBy(x => rand.Next()).ToArray();
-            return arr;
+            Random rng = new Random();
+            int n = array.Length;
+
+            while (n > 1)
+            {
+                n--;
+                int k = rng.Next(n + 1);
+                int temp = array[k];
+                array[k] = array[n];
+                array[n] = temp;
+            }
         }
+
 
         private void cropImageTomages(Image orginal, int w, int h)
         {
